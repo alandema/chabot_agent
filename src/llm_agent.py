@@ -1,6 +1,6 @@
 import json
 import os
-from tools.my_tools import main_tools
+from tools.my_tools import get_currency
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 from dotenv import load_dotenv
 load_dotenv('config.env')
@@ -10,6 +10,7 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage, trim
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages.tool import ToolMessage
 
 
 SAFETY_SETTINGS = {
@@ -43,11 +44,25 @@ workflow = StateGraph(state_schema=MessagesState)
 
 
 def call_model(state: MessagesState):
-    chain = prompt | model
+    chain = prompt | llm_with_tools
     trimmed_messages = trimmer.invoke(state["messages"])
-    response = chain.invoke(
-        {"messages": trimmed_messages}
-    )
+
+    response = chain.invoke(trimmed_messages)
+    trimmed_messages.append(response)
+
+    for tool_call in response.tool_calls:
+        selected_tool = {"get_currency": get_currency}[tool_call["name"].lower()]
+        result = selected_tool(**tool_call['args'])
+
+        tool_message = ToolMessage(
+            content=result,
+            name=tool_call['name'],
+            tool_call_id=tool_call['id'],
+        )
+        trimmed_messages.append(tool_message)
+
+    response = chain.invoke(trimmed_messages)
+
     return {"messages": response}
 
 
@@ -70,21 +85,25 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
+tools = [get_currency]
+
+llm_with_tools = model.bind_tools(tools)
+
 
 def main(input, id):
     config = {"configurable": {"thread_id": id}}
     input_messages = [HumanMessage(input)]
-    # output = app.invoke({"messages": input_messages}, config)
-    for chunk, metadata in app.stream(
-        {"messages": input_messages},
-        config,
-        stream_mode="messages",
-    ):
-        if isinstance(chunk, AIMessage):  # Filter to just model responses
-            print(chunk.content)
-    # output["messages"][-1].pretty_print()  # output contains all messages in state
+    output = app.invoke({"messages": input_messages}, config)
+    output["messages"][-1].pretty_print()  # output contains all messages in state
+    # for chunk, metadata in app.stream(
+    #     {"messages": input_messages},
+    #     config,
+    #     stream_mode="messages",
+    # ):
+    #     if isinstance(chunk, AIMessage):  # Filter to just model responses
+    #         print(chunk.content, end="")
 
 
 if __name__ == "__main__":
-    for message in ["Hello, my name is Alan", "I like ice cream", "what is my name?", "Do I like ice cream?"]:
+    for message in ["Hello, my name is Alan and I would like to convert 800 euros to USD on 2024-09-25"]:
         main(message, id="abc123")
