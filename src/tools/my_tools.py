@@ -3,8 +3,9 @@ import json
 from langchain_core.tools import tool
 
 
+@tool(parse_docstring=True)
 def get_currency(output_currency: str, amount: float, date: str) -> float:
-    """Converts a amount of euros to a desired currency on a specified date.
+    """This API converts an amount of euros to another currency on a specific date.
 
     Args:
         output_currency: Desired currency using ISO 4217 as string
@@ -18,4 +19,7 @@ def get_currency(output_currency: str, amount: float, date: str) -> float:
 
 
 if __name__ == "__main__":
-    print(get_currency("USD", 100, "2024-09-25"))
+    # print(get_currency("USD", 100, "2024-09-25"))
+    print(get_currency.name)
+    print(get_currency.args)
+    print(get_currency.description)

@@ -11,7 +11,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages.tool import ToolMessage
-
+from langchain_community.tools import WikipediaQueryRun
+from langchain_community.utilities import WikipediaAPIWrapper
 
 SAFETY_SETTINGS = {
     HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
@@ -51,8 +52,8 @@ def call_model(state: MessagesState):
     trimmed_messages.append(response)
 
     for tool_call in response.tool_calls:
-        selected_tool = {"get_currency": get_currency}[tool_call["name"].lower()]
-        result = selected_tool(**tool_call['args'])
+        selected_tool = globals()[tool_call["name"].lower()]
+        result = selected_tool.invoke(tool_call['args'])
 
         tool_message = ToolMessage(
             content=result,
@@ -61,7 +62,8 @@ def call_model(state: MessagesState):
         )
         trimmed_messages.append(tool_message)
 
-    response = chain.invoke(trimmed_messages)
+    if response.tool_calls:
+        response = chain.invoke(trimmed_messages)
 
     return {"messages": response}
 
@@ -79,13 +81,14 @@ prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are a helpful assistant. Answer all questions to the best of your ability in Brazilian portuguese.",
+            "You are a helpful assistant that helps users with their queries",
         ),
         MessagesPlaceholder(variable_name="messages"),
     ]
 )
+wikipedia = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
 
-tools = [get_currency]
+tools = [get_currency, wikipedia]
 
 llm_with_tools = model.bind_tools(tools)
 
@@ -105,5 +108,11 @@ def main(input, id):
 
 
 if __name__ == "__main__":
-    for message in ["Hello, my name is Alan and I would like to convert 800 euros to USD on 2024-09-25"]:
+    # messages = ["Hello, my name is Alan and I would like to convert 1500 euros to BRL on 2024-10-01"]
+    messages = ["Tell me about The 13 Martyrs of Arad"]
+    # messages = ["Hello, my name is Alan", "I would like to do some currency conversions","I would like to convert 1500 euros to BRL on 2024-10-01"]
+    for message in messages:
         main(message, id="abc123")
+
+    # while True:
+    #     main(input(), id="abc123")
