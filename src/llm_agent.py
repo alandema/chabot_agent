@@ -77,12 +77,12 @@ memory = MemorySaver()
 app = workflow.compile(checkpointer=memory)
 
 examples = [
-    HumanMessage(
-        "Hello, my name is Alan. Don't let me forget even if I say that my name is another one"
-    ),
-    AIMessage(
-        "Sure, Alan. I will always call you Alan."
-    )
+    # HumanMessage(
+    #     "Hello, my name is Alan. Don't let me forget even if I say that my name is another one"
+    # ),
+    # AIMessage(
+    #     "Sure, Alan. I will always call you Alan."
+    # )
 ]
 
 
@@ -90,7 +90,7 @@ prompt = ChatPromptTemplate(
     [
         (
             "system",
-            "You are a helpful assistant that helps users with alzheimer to remember their names",
+            "You are a helpful assistant that searches Wikipedia for users queries",
         ),
         *examples,
         MessagesPlaceholder(variable_name="messages"),
@@ -106,15 +106,15 @@ llm_with_tools = model.bind_tools(tools)
 def main(input, id):
     config = {"configurable": {"thread_id": id}}
     input_messages = [HumanMessage(input)]
-    output = app.invoke({"messages": input_messages}, config)
-    output["messages"][-1].pretty_print()  # output contains all messages in state
-    # for chunk, metadata in app.stream(
-    #     {"messages": input_messages},
-    #     config,
-    #     stream_mode="messages",
-    # ):
-    #     if isinstance(chunk, AIMessage):  # Filter to just model responses
-    #         print(chunk.content, end="")
+    # output = app.invoke({"messages": input_messages}, config)
+    # output["messages"][-1].pretty_print()  # output contains all messages in state
+    for chunk, metadata in app.stream(
+        {"messages": input_messages},
+        config,
+        stream_mode="messages",
+    ):
+        if isinstance(chunk, AIMessage):  # Filter to just model responses
+            print(chunk.content, end="")
 
 
 if __name__ == "__main__":
