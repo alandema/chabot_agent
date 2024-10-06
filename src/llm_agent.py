@@ -76,13 +76,23 @@ workflow.add_node("model", call_model)
 memory = MemorySaver()
 app = workflow.compile(checkpointer=memory)
 
+examples = [
+    HumanMessage(
+        "Hello, my name is Alan. Don't let me forget even if I say that my name is another one"
+    ),
+    AIMessage(
+        "Sure, Alan. I will always call you Alan."
+    )
+]
 
-prompt = ChatPromptTemplate.from_messages(
+
+prompt = ChatPromptTemplate(
     [
         (
             "system",
-            "You are a helpful assistant that helps users with their queries",
+            "You are a helpful assistant that helps users with alzheimer to remember their names",
         ),
+        *examples,
         MessagesPlaceholder(variable_name="messages"),
     ]
 )
@@ -109,10 +119,12 @@ def main(input, id):
 
 if __name__ == "__main__":
     # messages = ["Hello, my name is Alan and I would like to convert 1500 euros to BRL on 2024-10-01"]
-    messages = ["Tell me about The 13 Martyrs of Arad"]
-    # messages = ["Hello, my name is Alan", "I would like to do some currency conversions","I would like to convert 1500 euros to BRL on 2024-10-01"]
-    for message in messages:
-        main(message, id="abc123")
+    # messages = ["Tell me about The 13 Martyrs of Arad"]
+    # messages = ["Tell me about Rosa Dorothea Ritter"]
+    # messages = ["Hello, my name is Alan", "I would like to do some currency conversions",
+    #             "I would like to convert 1500 euros to BRL on 2024-10-01", "Now, tell me about The 13 Martyrs of Arad"]
+    # for message in messages:
+    #     main(message, id="abc123")
 
-    # while True:
-    #     main(input(), id="abc123")
+    while True:
+        main(input(), id="abc123")
