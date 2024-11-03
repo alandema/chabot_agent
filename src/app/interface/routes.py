@@ -1,8 +1,7 @@
 from flask import render_template, request, redirect, url_for
-from app import app
-from app.models import Todo
-from app import db
-db.create_all()
+from app.interface import app
+from app.interface.models import Todo
+from app.interface import db
 
 
 @app.route('/')
