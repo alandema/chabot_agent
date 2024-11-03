@@ -1,2 +1,2 @@
 # chabot_agent
-Implementing a simple agent with langchain and Gemini
+Implementing a simple agent with langchain, Flask and docker
