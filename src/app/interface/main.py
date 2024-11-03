@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
-# from app.models import User
-# from app import routes  # noqa
+# from .models import User
+# from .routes import *
 
 file_path = os.path.abspath(os.getcwd())+"\\src\\app\\users.db"
 
@@ -12,5 +12,3 @@ db = SQLAlchemy(app)
 
 with app.app_context():
     db.create_all()
-
-
