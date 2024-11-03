@@ -6,3 +6,4 @@ python-dotenv
 google-generativeai
 wikipedia
 flask
+flask_sqlalchemy
