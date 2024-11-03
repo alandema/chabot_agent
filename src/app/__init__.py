@@ -12,6 +12,5 @@ db = SQLAlchemy(app)
 
 app.app_context().push()
 
-db.create_all()
 
 from app import routes  # noqa
