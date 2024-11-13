@@ -1,32 +1,33 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-	<meta charset="UTF-8"> 
-	<title>Todo App</title> 
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}"> 
+<!DOCTYPE html>
+<html>
 
-</head> 
-<body> 
-	<h1>Todo List</h1> 
-	<div>Add a new todo item: 
-		<form action="{{ url_for('add') }}" method="POST"> 
-			<input type="text" name="todoitem"> 
-			<input type="submit" value="Add Item" class="button"> 
-		</form> 
-	</div> 
-	<div> 
-		<h2>Incomplete Items</h2> 
-		<ul> 
-			{% for todo in incomplete %} 
-			<li style="font-size: 30pt" class='mark'>{{ todo.text }} <a href="{{ url_for('complete', id=todo.id) }}">Mark As Complete</a></li> 
-			{% endfor %}	 
-		</ul> 
-		<h2>Completed Items</h2> 
-		<ul> 
-			{% for todo in complete %} 
-			<li style="font-size: 30pt">{{ todo.text }}</li> 
-			{% endfor %} 
-		</ul> 
-	</div> 
-</body> 
-</html> 
+<head>
+	<title>GenAI-Bot</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/chat_bot.js"></script>
+	<link rel="stylesheet" href="../static/main.css">
+
+</head>
+
+<body>
+
+	<div>
+		<h1 align="center"><b>AI-Gen ChatBot</b></h1>
+		<h4 align="center"><b>Please start your personalized interaction with the chatbot</b></h4>
+		<div class="boxed">
+			<div>
+				<div id="chatbox">
+					<p class="botText">
+						<span>Hi! I'm your AI-Generative Chatbot</span>
+					</p>
+				</div>
+				<div id="userInput">
+					<input id="textInput" type="text" name="msg" placeholder="Message" />
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
