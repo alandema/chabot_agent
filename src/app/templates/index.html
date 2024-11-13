@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<title>GenAI-Bot</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/js/chat_bot.js"></script>
-	<link rel="stylesheet" href="../static/css/main.css">
-
+    <title>GenAI-Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/chat_bot.js"></script>
+    <link rel="stylesheet" href="../static/css/main.css">
 </head>
-
 <body>
+    <div class="user-info">
+        <span>Welcome, {{ current_user.username }}!</span>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
 
-	<div>
-		<h1 align="center"><b>AI-Gen ChatBot</b></h1>
-		<h4 align="center"><b>Please start your personalized interaction with the chatbot</b></h4>
-		<div class="boxed">
-			<div>
-				<div id="chatbox">
-					<p class="botText">
-						<span>Hi! I'm your AI-Generative Chatbot</span>
-					</p>
-				</div>
-				<div id="userInput">
-					<input id="textInput" type="text" name="msg" placeholder="Message" />
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="chat-container">
+        <h1>AI-Gen ChatBot</h1>
+        <p class="subtitle">Please start your personalized interaction with the chatbot</p>
+        
+        <div class="chat-box">
+            <div id="chatbox">
+                <p class="botText">
+                    <span>Hi! I'm your AI-Generative Chatbot</span>
+                </p>
+            </div>
+            <div id="userInput">
+                <input id="textInput" type="text" name="msg" placeholder="Type your message here..." />
+            </div>
+        </div>
+    </div>
 </body>
-
 </html>

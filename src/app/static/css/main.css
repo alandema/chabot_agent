@@ -114,3 +114,148 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.user-info {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logout-btn {
+    display: inline-block;
+    padding: 5px 15px;
+    margin-left: 15px;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+.chat-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.chat-container h1 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.chat-box {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#chatbox {
+    height: 400px;
+    overflow-y: auto;
+    margin: 20px auto;
+    width: 80%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#userInput {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#textInput {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+#textInput:focus {
+    outline: none;
+    border-color: #4169e1;
+}
+
+.userText span {
+    background-color: #007bff;
+    padding: 10px 15px;
+    border-radius: 15px;
+    display: inline-block;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.botText span {
+    background-color: #e9ecef;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 15px;
+    display: inline-block;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.auth-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.auth-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+.user-info {
+    background-color: #fff;
+    padding: 15px 30px;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logout-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    margin-left: 15px;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c82333;
+}
+
+/* Update login/register container styles */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+.login-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}

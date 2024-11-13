@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, current_app, redirect, url_for, session
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from ..chatbot.bot import get_completion
 from ..models import db
 from ..models.user_model import Users
 
+
 @current_app.route("/")
+@login_required
 def home():
-    return render_template("index.html")
+    return render_template("index.html", current_user=current_user)
 
 
 @current_app.route("/get")
