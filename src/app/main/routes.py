@@ -43,7 +43,7 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        
+
         # Check if user already exists
         user = Users.query.filter_by(username=username).first()
         if user:

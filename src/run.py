@@ -3,4 +3,4 @@ from app import create_app
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=False)  # Use debug=True only in development
+    app.run(debug=True)  # Use debug=True only in development
