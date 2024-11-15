@@ -15,6 +15,12 @@ html {
 	margin-right: auto;
 	width: 40%;
 	margin-top: 60px;
+	height: 1500px;
+	overflow-y: auto;
+	padding: 20px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
 }
 
 #userInput {
@@ -168,7 +174,7 @@ button:hover {
 }
 
 #chatbox {
-    height: 400px;
+    height: 500px;
     overflow-y: auto;
     margin: 20px auto;
     width: 80%;
