@@ -9,7 +9,7 @@
 <body>
     <div class="login-container">
         <h1>Register</h1>
-        <form method="POST" action="{{ url_for('register') }}" onsubmit="return validateForm()">
+        <form method="POST" id="register-form" action="{{ url_for('register') }}" onsubmit="return validateForm()">
             <div class="form-group">
                 <input type="text" name="username" placeholder="Username" required>
             </div>
