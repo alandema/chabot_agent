@@ -30,6 +30,10 @@ html {
 	border-bottom: 3px solid black;
 	font-family: monospace;
 	font-size: 17px;
+	min-height: 50px;
+	max-height: 150px;
+	resize: vertical;
+	overflow-y: auto;
 }
 
 .userText {
@@ -44,6 +48,8 @@ html {
 	background-color: #808080;
 	padding: 10px;
 	border-radius: 2px;
+	white-space: pre-line;
+	text-align: left;
 }
 
 .botText {
@@ -58,6 +64,8 @@ html {
 	background-color: #4169e1;
 	padding: 10px;
 	border-radius: 2px;
+	white-space: pre-line;
+	text-align: left;
 }
 
 #tidbit {
@@ -182,6 +190,10 @@ button:hover {
     border-radius: 25px;
     font-size: 16px;
     transition: border-color 0.3s ease;
+    min-height: 50px;
+    max-height: 150px;
+    resize: vertical;
+    overflow-y: auto;
 }
 
 #textInput:focus {
@@ -196,6 +208,8 @@ button:hover {
     display: inline-block;
     max-width: 70%;
     word-wrap: break-word;
+    white-space: pre-line;
+    text-align: left;
 }
 
 .botText span {
@@ -206,6 +220,8 @@ button:hover {
     display: inline-block;
     max-width: 70%;
     word-wrap: break-word;
+    white-space: pre-line;
+    text-align: left;
 }
 
 .auth-link {
@@ -258,4 +274,31 @@ button:hover {
     text-align: center;
     color: #333;
     margin-bottom: 30px;
+}
+
+.background-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #aaa; /* Light color for background text */
+    pointer-events: none; /* Prevent interaction */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Hide background text when input is focused */
+#textInput:focus + .background-text,
+#textInput:not(:placeholder-shown) + .background-text {
+    opacity: 0; /* Hide the text */
+}
+
+#textInput.error {
+    border-color: #dc3545;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }

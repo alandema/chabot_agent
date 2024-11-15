@@ -45,7 +45,6 @@ memory = MemorySaver()
 app = workflow.compile(checkpointer=memory)
 
 def get_completion(msg, session_id):
-    
     config = {"configurable": {"thread_id": session_id}}
     input_messages = [HumanMessage(msg)]
     response = app.invoke({"messages": input_messages}, config)
