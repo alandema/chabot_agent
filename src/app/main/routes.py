@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, current_app, redirect, url_for, session
 from flask_login import login_required, login_user, logout_user, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+import uuid
 from ..chatbot.bot import get_completion
 from ..models import db
 from ..models.user_model import Users
@@ -15,7 +16,7 @@ def home():
 @current_app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    response = get_completion(userText)
+    response = get_completion(msg=userText, session_id=session['chat_session_id'])
     return response
 
 @current_app.route("/login", methods=['GET', 'POST'])
@@ -27,6 +28,7 @@ def login():
         user = Users.query.filter_by(username=username).first()
         if user and check_password_hash(user.password, password):
             login_user(user)
+            session['chat_session_id'] = str(uuid.uuid4())
             return redirect(url_for('home'))
         return render_template('login.html', error="Invalid username or password")
     
